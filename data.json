@@ -1,0 +1,11 @@
+[
+	{
+		"id": "28fba610-16d3-4c53-bc65-fb832b3b7ea6",
+		"name": "Ada Lovelace",
+		"email": "ada@example.net",
+		"phone": "555-1234",
+		"emailVerified": true,
+		"signedUp": "2021-10-01 15:35",
+		"originalId": 100
+	}
+]

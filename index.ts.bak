@@ -1,0 +1,35 @@
+import { PrismaClient } from '@prisma/client'
+import { Users } from "./lib/user-twin"
+
+const prisma = new PrismaClient()
+
+async function main() {
+  //const allUsers = await prisma.user.findMany()
+
+  const allUsers = await Users.findMany({
+    where: {
+      email: "grace@cipherstash.com"
+    }
+  })
+  console.log(allUsers)
+
+  console.log(await Users.findUnique({ where: { id: 1 }}))
+
+    /*await prisma.user.create({
+    data: {
+      name: 'Grace Hopper',
+      email: 'grace@cipherstash.com',
+      phone: '555-0789',
+      signedUp: new Date(),
+      emailVerified: true
+    },
+  })*/
+}
+
+main()
+  .catch((e) => {
+    throw e
+  })
+  .finally(async () => {
+    await prisma.$disconnect()
+  })
