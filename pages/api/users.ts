@@ -1,11 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import CsUser from "../../lib/cs-user"
+import SecureUser from "../../lib/user-vault"
 
 export default async function handler(
   _req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
   
-  const users = await CsUser.listUsers()
+  const users = await SecureUser.list()
   res.status(200).json(users)
 }

@@ -32,9 +32,11 @@ export default function Home() {
           {users && (
             <>
               <table>
-                <tr>
-                  <td>{ users[0].name }</td>
-                </tr>
+                {users.map(user => (
+                  <tr key={user.id}>
+                    <td>{ user.name }</td>
+                  </tr>
+                ))}
               </table>
             </>
           )}

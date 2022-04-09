@@ -1,7 +1,8 @@
 import { PrismaClient } from '@prisma/client'
-import CSUser from "lib/cs-user"
+import SecureUser from "lib/user-vault"
 
 (async function() {
+
   const prisma = new PrismaClient()
 
   await prisma.user.findMany()
@@ -9,7 +10,7 @@ import CSUser from "lib/cs-user"
       prismaUsers.forEach(async (user) => {
         console.log(`Migrating ${user.name}...`)
 
-        await CSUser.putUser(user)
+        await SecureUser.put(user)
       }
     )))
 

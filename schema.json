@@ -12,9 +12,9 @@
     "emailVerified": { "kind": "exact", "field": "emailVerified" },
     "exactEmail": { "kind": "exact", "field": "email" },
     "exactPhone": { "kind": "exact", "field": "phone" },
-    "search": {
+    "fuzzy": {
       "kind": "match",
-      "fields": ["phone", "name", "email"],
+      "fields": ["name", "email"],
       "tokenFilters": [
         { "kind": "downcase" },
         { "kind": "ngram", "tokenLength": 3 }
