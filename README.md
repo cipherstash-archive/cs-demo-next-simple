@@ -1,4 +1,10 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This app is a demo of using [CipherStash](https://cipherstash.com) to replace a [Prisma](https://prisma.io) `User` model in a `Next.js` app.
+
+## Secure User
+
+We use a `CollectionAPI<User>` class (from [@cipherstash/stashjs-adapter](https://www.npmjs.com/package/@cipherstash/stashjs-adapter)) to store users fully encrypted with searchable encryption. It is intended to look as close to the original `User` model created by Prisma as possible to minimize migration effort. It even uses the same type (`import { User } from "prisma/client"`).
+
+CipherStash collections use UUIDs but `CollectionAPI<User>` maps the integer IDs from Prisma into UUIDs so other parts of the application don't need to be changed.
 
 ## Getting Started
 
