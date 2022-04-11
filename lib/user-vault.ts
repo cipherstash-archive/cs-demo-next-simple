@@ -31,12 +31,12 @@ class UserMapper implements RecordMapper {
         name: "000",
         signedUp: new Date(1970),
         emailVerified: false,
-        stashId: stashId
+        stashId
       }
     })
     return dummyUser.id
   }
 }
 
-const userPlaintextStore = new UserMapper()
-export const UserVault = new CollectionAPI<User>("users", userPlaintextStore)
+const userMapper = new UserMapper()
+export const UserVault = new CollectionAPI<User>("users", userMapper)
