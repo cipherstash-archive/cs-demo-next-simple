@@ -1,8 +1,5 @@
-import { PrismaClient, User } from "@prisma/client"
 import type { NextApiRequest, NextApiResponse } from "next"
-import { UserVault } from "../../lib/user-vault"
-
-const prisma = new PrismaClient()
+import { User, UserVault } from "../../lib/user-vault"
 
 export default async function handler(
   req: NextApiRequest,
@@ -19,17 +16,13 @@ export default async function handler(
 
 async function createUser(req: NextApiRequest): Promise<User> {
   const { email, phone, name } = req.body
-
-  const user = await prisma.user.create({
-    data: {
-      email: email,
-      phone: phone,
-      name: name,
-      signedUp: new Date(),
-      emailVerified: false
-    }
+  return await UserVault.create({
+    email,
+    phone,
+    name,
+    signedUp: new Date(),
+    emailVerified: false
   })
-  return await UserVault.put(user)
 }
 
 async function getUsers(req: NextApiRequest): Promise<Array<User>> {
@@ -40,7 +33,7 @@ async function getUsers(req: NextApiRequest): Promise<Array<User>> {
   }
 }
 
-// -- Original function
+// -- Original functions
 
 /*async function getUsers(req: NextApiRequest): Promise<Array<User>> {
   if (req.query && req.query.q) {
@@ -55,17 +48,19 @@ async function getUsers(req: NextApiRequest): Promise<Array<User>> {
   } else {
     return await prisma.user.findMany({})
   } 
-}*/
+}
 
-// -- New stash-only create
-
-/*async function newcreateUser(req: NextApiRequest): Promise<User> {
+async function createUser(req: NextApiRequest): Promise<User> {
   const { email, phone, name } = req.body
-  return await UserVault.create({
-    email,
-    phone,
-    name,
-    signedUp: new Date(),
-    emailVerified: false
+
+  const user = await prisma.user.create({
+    data: {
+      email: email,
+      phone: phone,
+      name: name,
+      signedUp: new Date(),
+      emailVerified: false
+    }
   })
+  return await UserVault.put(user)
 }*/

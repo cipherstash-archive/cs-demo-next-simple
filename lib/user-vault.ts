@@ -1,7 +1,17 @@
-import { User, PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 import { RecordMapper, CollectionAPI } from '@cipherstash/stashjs-adapter'
 
 const prisma = new PrismaClient()
+
+export type User = {
+  id: number
+  email: string
+  phone: string
+  name: string
+  signedUp: Date
+  emailVerified: boolean
+  stashId: string
+}
 
 class UserMapper implements RecordMapper {
   async setStashId(record: {id: number}, stashId: string | null) {
@@ -24,17 +34,10 @@ class UserMapper implements RecordMapper {
   }
 
   async newIdFor(stashId: string): Promise<number> {
-    let dummyUser = await prisma.user.create({
-      data: {
-        email: "000",
-        phone: "000",
-        name: "000",
-        signedUp: new Date(1970),
-        emailVerified: false,
-        stashId
-      }
+    let user = await prisma.user.create({
+      data: { stashId }
     })
-    return dummyUser.id
+    return user.id
   }
 }
 

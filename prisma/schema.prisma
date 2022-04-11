@@ -12,11 +12,6 @@ datasource db {
 
 model User {
   id             Int     @id @default(autoincrement())
-  email          String
-  phone          String
-  name           String
-  signedUp       DateTime
-  emailVerified  Boolean
   stashId        String? @db.Uuid
 
   @@index(stashId)
