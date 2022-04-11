@@ -2,9 +2,11 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import useApi from "../lib/use-api"
+import { useState } from 'react'
 
 export default function Home() {
-  const { response: users, error, isLoading } = useApi("/api/users")
+  const [url, setUrl] = useState("/api/users")
+  const { response: users, error, isLoading } = useApi(url)
 
   return (
     <div className={styles.container}>
@@ -21,22 +23,28 @@ export default function Home() {
           Next.js Demo
         </h1>
 
-        <p className={styles.description}>
-          Check out the CipherStash <a href="https://docs.cipherstash.com" className={styles.card}>docs</a>
-          &nbsp;or examples for more information.
-        </p>
-
+        <input
+          type="text"
+          placeholder="Search users..."
+          onChange={(elem) => {
+            setUrl("/api/users?q="+elem.target.value)
+          }}
+        />
         <div>
           {isLoading && <p>Loading users...</p>}
 
           {users && (
             <>
               <table>
-                {users.map(user => (
-                  <tr key={user.id}>
-                    <td>{ user.name }</td>
-                  </tr>
-                ))}
+                <tbody>
+                  {users.map(user => (
+                    <tr key={user.id}>
+                      <td>{ user.name }</td>
+                      <td>{ user.email }</td>
+                      <td>{ user.phone }</td>
+                    </tr>
+                  ))}
+                </tbody>
               </table>
             </>
           )}
@@ -50,6 +58,11 @@ export default function Home() {
           )}
         </div>
       </main>
+      <footer className={styles.footer}>
+        <p>
+          Check out the CipherStash <a href="https://docs.cipherstash.com">docs</a> for more information.
+        </p>
+      </footer>
     </div>
   )
 }

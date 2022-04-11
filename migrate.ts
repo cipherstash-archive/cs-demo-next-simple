@@ -1,18 +1,21 @@
 import { PrismaClient } from '@prisma/client'
-import SecureUser from "lib/user-vault"
+import { UserVault } from "lib/user-vault"
 
 (async function() {
 
   const prisma = new PrismaClient()
 
-  await prisma.user.findMany()
-    .then(prismaUsers => (
-      prismaUsers.forEach(async (user) => {
-        console.log(`Migrating ${user.name}...`)
+  let prismaUsers = await prisma.user.findMany()
+  prismaUsers.forEach(async (user) => {
+    if (user.name != "000") {
+      console.log(`Migrating '${user.name}'...`)
 
-        await SecureUser.put(user)
-      }
-    )))
+      await UserVault.put(user)
+    }
+  })
+
+
+  //console.log(await UserVault.getAll([1,2,3,4]))
 
   await prisma.$disconnect()
 })()

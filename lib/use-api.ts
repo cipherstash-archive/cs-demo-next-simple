@@ -1,9 +1,17 @@
 import * as React from "react"
 
+type State = {
+  error: string
+  isLoading: boolean
+  response: any,
+  url: RequestInfo
+}
+
 function initialState(args: {
   error?: any
   isLoading?: boolean
-  response?: any
+  response?: any,
+  url: RequestInfo
 }) {
   return {
     response: null,
@@ -16,16 +24,13 @@ function initialState(args: {
 const useApi = (
   url: RequestInfo,
   options = null
-): {
-  error: string
-  isLoading: boolean
-  response: any
-} => {
-  const [state, setState] = React.useState(() => initialState({}))
+): State => {
+  const [state, setState] = React.useState(() => initialState({url}))
 
   React.useEffect(() => {
     const fetchData = async () => {
       try {
+        console.log("Fetching:", url)
         const res = await fetch(url, {
           ...(options || {}),
         })
@@ -35,6 +40,7 @@ const useApi = (
             initialState({
               error: await res.json(),
               isLoading: false,
+              url
             })
           )
         } else {
@@ -42,6 +48,7 @@ const useApi = (
             initialState({
               response: await res.json(),
               isLoading: false,
+              url
             })
           )
         }
@@ -53,12 +60,14 @@ const useApi = (
               error: (error as Error).message,
             },
             isLoading: false,
+            url
           })
         )
       }
     }
     fetchData()
   }, [url, options])
+
   return state
 }
 

@@ -17,4 +17,5 @@ model User {
   name           String
   signedUp       DateTime
   emailVerified  Boolean
+  stashId        String? @db.Uuid
 }
