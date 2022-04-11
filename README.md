@@ -1,4 +1,6 @@
 This app is a demo of using [CipherStash](https://cipherstash.com) to replace a [Prisma](https://prisma.io) `User` model in a `Next.js` app.
+See all the details in this [blog
+post](https://cipherstash.com/blog/2022-04-12-convert-user-model-in-nextjs-prisma-app-to-cipherstash).
 
 ## Secure User
 
