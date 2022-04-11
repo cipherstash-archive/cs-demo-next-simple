@@ -3,7 +3,7 @@ import { RecordMapper, CollectionAPI } from '@cipherstash/stashjs-adapter'
 
 const prisma = new PrismaClient()
 
-class UserPlaintextStore implements RecordMapper {
+class UserMapper implements RecordMapper {
   async setStashId(record: {id: number}, stashId: string | null) {
     await prisma.user.update({
       where: { id: record.id },
@@ -38,5 +38,5 @@ class UserPlaintextStore implements RecordMapper {
   }
 }
 
-const userPlaintextStore = new UserPlaintextStore()
+const userPlaintextStore = new UserMapper()
 export const UserVault = new CollectionAPI<User>("users", userPlaintextStore)
