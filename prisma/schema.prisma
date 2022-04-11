@@ -18,4 +18,6 @@ model User {
   signedUp       DateTime
   emailVerified  Boolean
   stashId        String? @db.Uuid
+
+  @@index(stashId)
 }
