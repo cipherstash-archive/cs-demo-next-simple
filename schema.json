@@ -5,7 +5,7 @@
     "name": "string",
     "signedUp": "date",
     "emailVerified": "boolean",
-    "originalId": "number"
+    "originalId": "float64"
   },
   "indexes": {
     "signedUp": { "kind": "range", "field": "signedUp" },
