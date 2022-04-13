@@ -10,7 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@cipherstash/stashjs-adapter": "^0.0.3",
+    "@cipherstash/stashjs-adapter": "^0.0.4",
     "@prisma/client": "^3.11.0",
     "next": "12.1.0",
     "react": "17.0.2",
